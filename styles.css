@@ -1,0 +1,166 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --red: #eb5a54;
+  --accent-red: #f7928f;
+  --yellow: #f6d74f;
+  --accent-yellow: #ffea8c;
+  --dark-yellow: #cab039;
+  --light-blue: #a2cedd;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--yellow);
+  font-family: "Pacifico", sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hide {
+  display: none;
+}
+
+h1 {
+  color: var(--red);
+  margin-top: 2rem;
+  font-size: 4.8rem;
+}
+
+.subtext {
+  margin-top: 3rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.5rem;
+}
+
+.subtext > span {
+  font-weight: 700;
+}
+
+.table {
+  padding: 12px;
+  margin-top: 3rem;
+  border-radius: 10px;
+  background-color: white;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+.cell {
+  height: 15rem;
+  width: 15rem;
+  background-color: var(--light-blue);
+  border: none;
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10rem;
+
+  cursor: pointer;
+}
+
+.cell:hover {
+  cursor: pointer;
+  background-color: rgb(142, 191, 208);
+}
+
+.cross {
+  position: relative;
+  background-color: var(--accent-yellow);
+  color: var(--dark-yellow);
+}
+
+.circle {
+  background-color: var(--accent-red);
+  color: var(--red);
+}
+
+.circle:hover {
+  cursor: auto;
+  background-color: var(--accent-red);
+}
+
+.cross:hover {
+  cursor: auto;
+  background-color: var(--accent-yellow);
+}
+
+.cross::after {
+  content: "\00d7";
+  position: absolute;
+  height: 100%;
+  bottom: 30%;
+  font-size: 18rem;
+}
+
+.circle::after {
+  content: "";
+  width: 50%;
+  height: 50%;
+  border: 1rem solid var(--red);
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cross::after,
+.circle::after {
+  cursor: auto;
+}
+
+.names {
+  margin-top: 2rem;
+  width: 50vw;
+
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+}
+
+.names input {
+  padding: 1.2rem;
+  height: 4rem;
+
+  border: none;
+  border-radius: 10px;
+
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.8rem;
+}
+
+.names input:focus {
+  border: none;
+  outline: 2px solid #eb5a54;
+}
+
+button {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border: none;
+  border-radius: 15px;
+
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.8rem;
+  font-weight: bold;
+
+  cursor: pointer;
+}
