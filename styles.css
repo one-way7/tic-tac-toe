@@ -21,16 +21,12 @@ html {
 
 body {
   background-color: var(--yellow);
-  font-family: "Pacifico", sans-serif;
+  font-family: 'Pacifico', sans-serif;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.hide {
-  display: none;
 }
 
 h1 {
@@ -41,7 +37,7 @@ h1 {
 
 .subtext {
   margin-top: 3rem;
-  font-family: "JetBrains Mono", monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 1.5rem;
 }
 
@@ -49,7 +45,7 @@ h1 {
   font-weight: 700;
 }
 
-.table {
+.board {
   padding: 12px;
   margin-top: 3rem;
   border-radius: 10px;
@@ -70,7 +66,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "JetBrains Mono", monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10rem;
 
   cursor: pointer;
@@ -103,7 +99,7 @@ h1 {
 }
 
 .cross::after {
-  content: "\00d7";
+  content: '\00d7';
   position: absolute;
   height: 100%;
   bottom: 30%;
@@ -111,7 +107,7 @@ h1 {
 }
 
 .circle::after {
-  content: "";
+  content: '';
   width: 50%;
   height: 50%;
   border: 1rem solid var(--red);
@@ -143,7 +139,7 @@ h1 {
   border: none;
   border-radius: 10px;
 
-  font-family: "JetBrains Mono", monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 1.8rem;
 }
 
@@ -158,9 +154,13 @@ button {
   border: none;
   border-radius: 15px;
 
-  font-family: "JetBrains Mono", monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 1.8rem;
   font-weight: bold;
 
   cursor: pointer;
+}
+
+.hide {
+  display: none;
 }
