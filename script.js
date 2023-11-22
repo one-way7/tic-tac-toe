@@ -30,6 +30,8 @@ function createPlayer(name, mark) {
 const Game = (() => {
   const players = [];
   let activePlayer;
+  let isWin = false;
+  const board = Gameboard.getBoard();
   const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -53,20 +55,25 @@ const Game = (() => {
     Gameboard.render();
   };
 
-  const putMarkInCell = (e) => {
-    const cell = e.target;
-    const cellIndex = e.target.getAttribute('id');
+  const putMarkInCell = (cell, index) => {
     const activePlayerClass = activePlayer.mark === 'X' ? 'cross' : 'circle';
 
-    Gameboard.getBoard()[cellIndex] = activePlayer.mark;
+    board[index] = activePlayer.mark;
     cell.classList.add(activePlayerClass);
   };
 
   const playRound = (e) => {
-    putMarkInCell(e);
+    const cell = e.target;
+    const cellIndex = e.target.getAttribute('id');
+
+    if (isWin) return;
+    if (board[cellIndex] !== '') return;
+
+    putMarkInCell(cell, cellIndex);
 
     if (checkWinner()) {
       DisplayController.setWinner(activePlayer.name);
+      isWin = true;
       return;
     }
 
@@ -77,7 +84,7 @@ const Game = (() => {
   const checkWinner = () => {
     return winConditions.some((combinations) => {
       return combinations.every((index) => {
-        return Gameboard.getBoard()[index] === activePlayer.mark;
+        return board[index] === activePlayer.mark;
       });
     });
   };
