@@ -41,8 +41,8 @@ const Game = (() => {
     const player1 = createPlayer(playerName1, 'X');
     const player2 = createPlayer(playerName2, 'O');
 
-    players.push(player1);
-    players.push(player2);
+    players.push(player1, player2);
+
     activePlayer = players[0];
     DisplayController.setActivePlayerName(activePlayer.name);
     Gameboard.render();
