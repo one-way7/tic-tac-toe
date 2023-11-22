@@ -104,6 +104,7 @@ const Game = (() => {
     isWin = false;
 
     DisplayController.setActivePlayerName(activePlayer.name);
+    DisplayController.hideRestartBtn();
   };
 
   return {
@@ -168,6 +169,10 @@ const DisplayController = (() => {
     restartBtn.classList.remove('hide');
   };
 
+  const hideRestartBtn = () => {
+    restartBtn.classList.add('hide');
+  };
+
   return {
     displayBoard,
     getBoardDiv,
@@ -179,6 +184,7 @@ const DisplayController = (() => {
     hideIputs,
     attachHandlerOnInput,
     showRestartBtn,
+    hideRestartBtn,
   };
 })();
 
