@@ -31,7 +31,14 @@ const Game = (() => {
   const players = [];
   let activePlayer;
   const winConditions = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 3, 6, 1, 4, 7, 2, 5, 8, 0, 4, 8, 2, 4, 6,
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
   ];
 
   const getActivePlayer = () => activePlayer;
@@ -49,15 +56,34 @@ const Game = (() => {
   const putMarkInCell = (e) => {
     const cellIndex = e.target.getAttribute('id');
 
-    Gameboard.getBoard()[cellIndex] = activePlayer;
+    Gameboard.getBoard()[cellIndex] = activePlayer.mark;
   };
 
-  const playRound = () => {};
+  const playRound = (e) => {
+    putMarkInCell(e);
+    Gameboard.render();
+
+    if (checkWinner()) {
+      DisplayController.setWinner(activePlayer.name);
+      return;
+    }
+
+    activePlayer = activePlayer.mark === 'X' ? players[1] : players[0];
+    DisplayController.setActivePlayerName(activePlayer.name);
+  };
+
+  const checkWinner = () => {
+    return winConditions.some((combinations) => {
+      return combinations.every((index) => {
+        return Gameboard.getBoard()[index] === activePlayer.mark;
+      });
+    });
+  };
 
   return {
     start,
     getActivePlayer,
-    putMarkInCell,
+    playRound,
   };
 })();
 
@@ -94,11 +120,15 @@ const DisplayController = (() => {
     subtextDiv.textContent = `${name}'s turn!`;
   };
 
-  const attachHandlerOnInput = (callback, board, activePlayer) => {
+  const setWinner = (name) => {
+    subtextDiv.textContent = `${name} WIN the game!`;
+  };
+
+  const attachHandlerOnInput = () => {
     const cellsDiv = document.querySelectorAll('.cell');
 
     cellsDiv.forEach((cell) => {
-      cell.addEventListener('click', Game.putMarkInCell);
+      cell.addEventListener('click', Game.playRound);
     });
   };
 
@@ -108,6 +138,7 @@ const DisplayController = (() => {
     hideStartBtn,
     getPlayersName,
     setActivePlayerName,
+    setWinner,
     hideIputs,
     attachHandlerOnInput,
   };
