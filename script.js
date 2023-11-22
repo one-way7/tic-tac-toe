@@ -11,11 +11,7 @@ const Gameboard = (() => {
     }
 
     DisplayController.getBoardDiv().innerHTML = boardHTML;
-    DisplayController.attachHandlerOnInput(
-      Game.putMarkInCell,
-      getBoard(),
-      Game.getActivePlayer().mark,
-    );
+    DisplayController.attachHandlerOnInput();
   };
 
   return {
@@ -34,6 +30,9 @@ function createPlayer(name, mark) {
 const Game = (() => {
   const players = [];
   let activePlayer;
+  const winConditions = [
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 3, 6, 1, 4, 7, 2, 5, 8, 0, 4, 8, 2, 4, 6,
+  ];
 
   const getActivePlayer = () => activePlayer;
 
@@ -42,16 +41,15 @@ const Game = (() => {
     const player2 = createPlayer(playerName2, 'O');
 
     players.push(player1, player2);
-
     activePlayer = players[0];
     DisplayController.setActivePlayerName(activePlayer.name);
     Gameboard.render();
   };
 
-  const putMarkInCell = (e, board, activePlayer) => {
+  const putMarkInCell = (e) => {
     const cellIndex = e.target.getAttribute('id');
 
-    board[cellIndex] = activePlayer;
+    Gameboard.getBoard()[cellIndex] = activePlayer;
   };
 
   const playRound = () => {};
@@ -100,7 +98,7 @@ const DisplayController = (() => {
     const cellsDiv = document.querySelectorAll('.cell');
 
     cellsDiv.forEach((cell) => {
-      cell.addEventListener('click', (e) => callback(e, board, activePlayer));
+      cell.addEventListener('click', Game.putMarkInCell);
     });
   };
 
