@@ -71,6 +71,10 @@ const DisplayController = (() => {
     };
   };
 
+  const hideIputs = () => {
+    inputContainer.classList.add('hide');
+  };
+
   const setActivePlayerName = (name) => {
     subtextDiv.textContent = `${name}'s turn!`;
   };
@@ -81,6 +85,7 @@ const DisplayController = (() => {
     hideStartBtn,
     getPlayersName,
     setActivePlayerName,
+    hideIputs,
   };
 })();
 
@@ -88,4 +93,5 @@ document.querySelector('.start').addEventListener('click', () => {
   Game.start(DisplayController.getPlayersName());
   DisplayController.displayBoard();
   DisplayController.hideStartBtn();
+  DisplayController.hideIputs();
 });
