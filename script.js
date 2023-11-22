@@ -7,7 +7,7 @@ const Gameboard = (() => {
     let boardHTML = '';
 
     for (let i = 0; i < 9; i++) {
-      boardHTML += `<div class='cell' id='${i}'>${board[i]}</div>`;
+      boardHTML += `<div class='cell' id='${i}'></div>`;
     }
 
     DisplayController.getBoardDiv().innerHTML = boardHTML;
@@ -54,14 +54,16 @@ const Game = (() => {
   };
 
   const putMarkInCell = (e) => {
+    const cell = e.target;
     const cellIndex = e.target.getAttribute('id');
+    const activePlayerClass = activePlayer.mark === 'X' ? 'cross' : 'circle';
 
     Gameboard.getBoard()[cellIndex] = activePlayer.mark;
+    cell.classList.add(activePlayerClass);
   };
 
   const playRound = (e) => {
     putMarkInCell(e);
-    Gameboard.render();
 
     if (checkWinner()) {
       DisplayController.setWinner(activePlayer.name);
