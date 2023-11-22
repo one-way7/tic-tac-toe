@@ -11,6 +11,11 @@ const Gameboard = (() => {
     }
 
     DisplayController.getBoardDiv().innerHTML = boardHTML;
+    DisplayController.attachHandlerOnInput(
+      Game.putMarkInCell,
+      getBoard(),
+      Game.getActivePlayer().mark,
+    );
   };
 
   return {
@@ -30,6 +35,8 @@ const Game = (() => {
   const players = [];
   let activePlayer;
 
+  const getActivePlayer = () => activePlayer;
+
   const start = ({ playerName1, playerName2 }) => {
     const player1 = createPlayer(playerName1, 'X');
     const player2 = createPlayer(playerName2, 'O');
@@ -41,8 +48,18 @@ const Game = (() => {
     Gameboard.render();
   };
 
+  const putMarkInCell = (e, board, activePlayer) => {
+    const cellIndex = e.target.getAttribute('id');
+
+    board[cellIndex] = activePlayer;
+  };
+
+  const playRound = () => {};
+
   return {
     start,
+    getActivePlayer,
+    putMarkInCell,
   };
 })();
 
@@ -79,6 +96,14 @@ const DisplayController = (() => {
     subtextDiv.textContent = `${name}'s turn!`;
   };
 
+  const attachHandlerOnInput = (callback, board, activePlayer) => {
+    const cellsDiv = document.querySelectorAll('.cell');
+
+    cellsDiv.forEach((cell) => {
+      cell.addEventListener('click', (e) => callback(e, board, activePlayer));
+    });
+  };
+
   return {
     displayBoard,
     getBoardDiv,
@@ -86,6 +111,7 @@ const DisplayController = (() => {
     getPlayersName,
     setActivePlayerName,
     hideIputs,
+    attachHandlerOnInput,
   };
 })();
 
