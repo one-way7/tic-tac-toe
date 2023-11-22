@@ -77,6 +77,11 @@ const Game = (() => {
       return;
     }
 
+    if (!isWin && board.every((item) => item !== '')) {
+      DisplayController.setTie();
+      return;
+    }
+
     activePlayer = activePlayer.mark === 'X' ? players[1] : players[0];
     DisplayController.setActivePlayerName(activePlayer.name);
   };
@@ -133,6 +138,10 @@ const DisplayController = (() => {
     subtextDiv.textContent = `${name} WIN the game!`;
   };
 
+  const setTie = () => {
+    subtextDiv.textContent = `It's a Tie!`;
+  };
+
   const attachHandlerOnInput = () => {
     const cellsDiv = document.querySelectorAll('.cell');
 
@@ -148,6 +157,7 @@ const DisplayController = (() => {
     getPlayersName,
     setActivePlayerName,
     setWinner,
+    setTie,
     hideIputs,
     attachHandlerOnInput,
   };
