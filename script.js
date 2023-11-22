@@ -74,11 +74,13 @@ const Game = (() => {
     if (checkWinner()) {
       DisplayController.setWinner(activePlayer.name);
       isWin = true;
+      DisplayController.showRestartBtn();
       return;
     }
 
     if (!isWin && board.every((item) => item !== '')) {
       DisplayController.setTie();
+      DisplayController.showRestartBtn();
       return;
     }
 
@@ -94,16 +96,28 @@ const Game = (() => {
     });
   };
 
+  const restartGame = () => {
+    for (let i = 0; i < board.length; i++) {
+      board[i] = '';
+    }
+    Gameboard.render();
+    isWin = false;
+
+    DisplayController.setActivePlayerName(activePlayer.name);
+  };
+
   return {
     start,
     getActivePlayer,
     playRound,
+    restartGame,
   };
 })();
 
 const DisplayController = (() => {
   const boardDiv = document.querySelector('.board');
   const startBtn = document.querySelector('.start');
+  const restartBtn = document.querySelector('.restart');
   const inputContainer = document.querySelector('.input-container');
   const playerInput1 = inputContainer.querySelector('[name="first"]');
   const playerInput2 = inputContainer.querySelector('[name="second"]');
@@ -150,6 +164,10 @@ const DisplayController = (() => {
     });
   };
 
+  const showRestartBtn = () => {
+    restartBtn.classList.remove('hide');
+  };
+
   return {
     displayBoard,
     getBoardDiv,
@@ -160,6 +178,7 @@ const DisplayController = (() => {
     setTie,
     hideIputs,
     attachHandlerOnInput,
+    showRestartBtn,
   };
 })();
 
@@ -169,3 +188,5 @@ document.querySelector('.start').addEventListener('click', () => {
   DisplayController.hideStartBtn();
   DisplayController.hideIputs();
 });
+
+document.querySelector('.restart').addEventListener('click', Game.restartGame);
